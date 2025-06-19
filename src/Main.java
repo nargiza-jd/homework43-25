@@ -131,4 +131,23 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    private static void handleStatic(HttpExchange exchange) {
+        try {
+            String requestPath = exchange.getRequestURI().getPath();
+            String filePath = "public" + requestPath;
+
+            File file = new File(filePath);
+            if (!file.exists()) {
+                String msg = "404 not found" + requestPath;
+                exchange.sendResponseHeaders(404, msg.length());
+                exchange.getResponseBody().write(msg.getBytes(StandardCharsets.UTF_8));
+                return;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            exchange.close();
+        }
+    }
 }
