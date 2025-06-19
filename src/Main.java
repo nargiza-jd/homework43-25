@@ -24,11 +24,10 @@ public class Main {
         server.createContext("/apps/", Main::handleApps);
         server.createContext("/apps/profile", Main::handleProfile);
 
-        server.createContext(".html", Main::handleStatic);
-        server.createContext(".css", Main::handleStatic);
-        server.createContext(".js", Main::handleStatic);
-        server.createContext(".png", Main::handleStatic);
-        server.createContext(".jpg", Main::handleStatic);
+        server.createContext("/index.html", Main::handleStatic);
+        server.createContext("/css/forms.css", Main::handleStatic);
+        server.createContext("/bg/bg.png", Main::handleStatic);
+        server.createContext("/images/1.jpg", Main::handleStatic);
     }
 
     private static void handleRequest(HttpExchange exchange) {
@@ -159,7 +158,6 @@ public class Main {
     private static String getContentType(String path) {
         if (path.endsWith(".html")) return "text/html; charset=utf-8";
         if (path.endsWith(".css")) return "text/css";
-        if (path.endsWith(".js")) return "application/javascript";
         if (path.endsWith(".png")) return "image/png";
         if (path.endsWith(".jpg")) return "image/jpg";
         return "application/octet-stream";
