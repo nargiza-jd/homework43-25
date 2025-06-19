@@ -22,7 +22,7 @@ public class Main {
     private static void initRoutes(HttpServer server) {
         server.createContext("/", Main::handleRequest);
         server.createContext("/apps/", Main::handleRoot);
-        server.createContext("/apps/profile", Main::handleRequest);
+        server.createContext("/apps/profile", Main::handleApps);
 
     }
 
@@ -54,6 +54,20 @@ public class Main {
     private static void handleRoot(HttpExchange exchange) {
         try (PrintWriter writer = getWriterFrom(exchange)) {
             String response = "Это корневая страница";
+            exchange.getResponseHeaders().add("Content-Type", "text/plain; charset=utf-8");
+            int responseCode = 200;
+            int length = 0;
+            exchange.sendResponseHeaders(responseCode, length);
+            writer.write(response);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void handleApps(HttpExchange exchange) {
+        try (PrintWriter writer = getWriterFrom(exchange)) {
+            String response = "Добро пожаловать в /apps";
             exchange.getResponseHeaders().add("Content-Type", "text/plain; charset=utf-8");
             int responseCode = 200;
             int length = 0;
