@@ -28,6 +28,12 @@ public class Main {
         server.createContext("/css/forms.css", Main::handleStatic);
         server.createContext("/bg/bg.png", Main::handleStatic);
         server.createContext("/images/1.jpg", Main::handleStatic);
+
+        server.createContext("/images", Main::handleImage);
+    }
+
+    private static void handleImage(HttpExchange exchange) {
+
     }
 
     private static void handleRequest(HttpExchange exchange) {
