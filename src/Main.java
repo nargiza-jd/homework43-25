@@ -51,7 +51,7 @@ public class Main {
         }
     }
 
-    private static void handleRoot(HttpExchange exchange) throws IOException {
+    private static void handleRoot(HttpExchange exchange) {
         try (PrintWriter writer = getWriterFrom(exchange)) {
             String response = "Это корневая страница";
             exchange.getResponseHeaders().add("Content-Type", "text/plain; charset=utf-8");
