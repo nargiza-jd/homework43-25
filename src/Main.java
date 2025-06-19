@@ -51,6 +51,20 @@ public class Main {
         }
     }
 
+    private static void handleRoot(HttpExchange exchange) throws IOException {
+        try (PrintWriter writer = getWriterFrom(exchange)) {
+            String response = "Это корневая страница";
+            exchange.getResponseHeaders().add("Content-Type", "text/plain; charset=utf-8");
+            int responseCode = 200;
+            int length = 0;
+            exchange.sendResponseHeaders(responseCode, length);
+            writer.write(response);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void writeHeaders(Writer writer, String type, Headers headers) {
         write(writer, type, "");
         headers.forEach((key, value) -> write(writer, "\t" + key, value.toString()));
